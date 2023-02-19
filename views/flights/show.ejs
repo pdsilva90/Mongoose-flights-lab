@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+<form action="/flights/<%= flight._id %>?_method=DELETE" method="POST">
+  <button type="submit">Delete</button>
+ 
+
+  <section id="show-page">
+    <div>Airline: </div>
+    <div><%= flight.airline %></div>
+    <div>Airports: </div>
+    <div><%= flight.airports %></div>
+    <div>Flight Number: </div>
+    <div><%= flight.flightNo %></div>
+    <div>Departs: </div>
+    <div><%= flight.departs %></div>
+  </section>
+
+  <h2>Destination</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Destination Airport</th>
+        <th>Arrival</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% flight.destinations.sort((a, b) => a.arrival - b.arrival).forEach(function (destination) { %>
+        <tr>
+            <td><%= destination.airport %></td>
+            <td><%= (destination.arrival).toString().slice(4, 16) %></td>
+            <td><%= (destination.arrival).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table><br>
+
+  <form action="/flights/<%= flight._id %>" method="POST">
+    <label>Destination Airport:
+        <select name="airport">
+          <option value="AUS">AUS</option>
+          <option value="DFW">DFW</option>
+          <option value="LAX">LAX</option>
+          <option value="DEN">DEN</option>
+        </select>
+    </label><br>
+    <label>Arrival:
+      <input type="datetime-local" name="arrival" value="2024-05-16T06:30">
+    </label><br>
+    <button type="submit">Add Destination Details</button>
+  </form>
+
+
+
+
+
+
+<%- include('../partials/footer') %>
