@@ -6,11 +6,11 @@ module.exports = {
     new: newFlight,
     create,
     addDestination,
-    delete: deleteFlight,
 }
 
 function index(req, res) {
     Flight.find({}, function(err, flights) {
+        console.log(flights)
         res.render('flights/index', { title: 'All Flights', flights});
     });
 }
@@ -18,7 +18,7 @@ function index(req, res) {
 function show(req, res) {
     Flight.findById(req.params.id, function(err, flight){
         if (err) return res.redirect('/flights');
-        res.render('flight/show', {title: 'Flight Details', flight});
+        res.render('flights/show', {title: 'Flight Details', flight});
     });
 }
 
@@ -28,6 +28,7 @@ function newFlight(req, res) {
 
 
 function create(req, res) {
+    console.log(req.body)
     var flight = new Flight(req.body);
     flight.save(function(err) {
         if (err) return res.render('flights/new');
@@ -43,12 +44,3 @@ function addDestination(req, res, next) {
       });
     });
   }
-
-
-function deleteFlight(req, res) {
-    Flight.findByIdAndDelete(req.params.id, function(err, flight){
-      if (err) return res.redirect('/flights');
-        console.log(flight);
-      res.redirect('/flights');
-    });
-  };
