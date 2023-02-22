@@ -11,7 +11,7 @@ router.get('/new', flightsCtrl.new);
 router.post('/', flightsCtrl.create);
 router.get('/:id', flightsCtrl.show);
 router.post('/:id', flightsCtrl.addDestination);
-
+router.post('/:id/tickets', flightsCtrl.addTicket);
 
 
 
